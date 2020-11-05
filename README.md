@@ -2,10 +2,10 @@
 
 ## Overview
 
-This document walks through how we can build and train a model using Azure Databricks and we can track, run and deploy models in Azure Machine Learning from Azure Databricks using the open source MLFlow APIs. 
-The model will then be deployed using MLFlow API as a:
-* [Spark Pandas UDF](https://spark.apache.org/docs/latest/sql-pyspark-pandas-with-arrow.html) for batch scoring, and,
-* A web servce in Azure Machine Learning
+This document walks through how we can build and train a model using Azure Databricks and/or Azure Machine Learning for two different solutions:
+* Solution 1: Build and train a model on Azure Databrics and use it to predict the current and future state of the machine
+* Solution 2: Build and train a model on Azure Databricks and use the open source MLFlow API to track, run and deploy models on Azure Machine Learning. 
+For the latter solution the model is then deployed as a web service in Azure Machine Learning and used for batch scoring.
 
 A predictive maintenance scenario is used for this use case, where a Random Forest is trained and used to classify a set of four machine components into _healthy_ or _unhealthy requiring maintenance_ states.
 
@@ -44,17 +44,16 @@ An additional benefit of MLFlow, is that MLFlow wll autmaticlly track your MLib 
 
 ## Design
 
-This solution uses the Azure Databricks service. We create jobs that set up the batch scoring demonstration. Each job executes a Databricks notebook to prepare the data and create the full solution. Within the architecture diagram below, each of the boxes represents a different job:
+One solution only uses the Azure Databricks service, whilst the latter which details how to deploy the model as a web service uses both databricks and AMLS. The first solution is comprised of 4 notebooks, whilst the second consists of 3. 
 
  1. **Ingest** downloads the simulated data sets from a GitHub site and converts and stores them as Spark dataframes on the Databricks DBFS. “Input Data” in the architecture diagram refers to a set of five simulated data sets related to realistic machine operating conditions.
 
  2. **Feature engineering** transforms and combines the data sets into an analysis data set. The analysis data set can be targeted for training a model or scoring data for a production pipeline. Each analysis data set is also stored in the Databricks DBFS.
 
- 3. **Training** takes a subset of the complete data and constructs a model we can use to predict future outcomes. The model is stored in the Databricks DBFS for use by the scoring notebook.
+ 3. **Training** takes a subset of the complete data and constructs a model we can use to predict future outcomes. For solution 1, The model is stored in the Databricks DBFS for use by the scoring notebook. For solution 2, this notebook also details how to deploy the model as a web service and use it for batch scoring. This might be split into another notebook in the future. 
 
  4. **Scoring** uses a different subset of the data, including data not yet collected to predict the current and future state of the machine. The model results are stored back onto the Databricks DBFS.
 
-![Databricks Architecture diagram](./batch-scoring-spark.png "Architecture diagram")
 
 # Prerequisites
 
