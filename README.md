@@ -2,11 +2,45 @@
 
 ## Overview
 
-This scenario demonstrates batch scoring of a Spark machine learning model on Azure Databricks. We use a predictive maintenance scenario where we classify machine sensor readings to classify a set of four machine components into _healthy_ or _unhealthy requiring maintenance_ states. The resulting supervised multi-class classifier model scores batches of new observations through a regularly scheduled Azure Databricks notebook job.
+This document walks through how we can build and train a model using Azure Databricks and we can track, run and deploy models in Azure Machine Learning from Azure Databricks using the open source MLFlow APIs. 
+The model will then be deployed using MLFlow API as a:
+* [Spark Pandas UDF](https://spark.apache.org/docs/latest/sql-pyspark-pandas-with-arrow.html) for batch scoring, and,
+* A web servce in Azure Machine Learning
 
-The solution uses methods from the PySpark MLlib machine learning library, but the scoring process can be generalized to use any Spark, Python or R model hosted on Azure Databricks to make real-time predictions.
+A predictive maintenance scenario is used for this use case, where a Random Forest is trained and used to classify a set of four machine components into _healthy_ or _unhealthy requiring maintenance_ states.
 
 For an in-depth description of the scenario, we have documented the operations in each of the supplied Jupyter notebooks contained in the `./notebooks/` directory of this repository.
+
+## Experiment Tracking and Model Deployment with MLFlow and Azure Machine Learning
+
+#### Azure Machine Learning Service <img src=https://www.bluegranite.com/hubfs/Machine%20Learning%20Service%20Workspaces.svg width="30">
+Azure Machine Learning Service (AMLS) is Microsoft's homegrown solutions to supporting your end-to-end machine learning lifecycle in Azure. AMLS is a newer service on Azure that's continually getting new features. Currently you can use either the Python SDK or the R SDK to interact with the service or you can use the Designer for a low-code foray into machine learning. 
+
+<!--![](https://www.bluegranite.com/hubfs/Machine%20Learning%20Service%20Workspaces.svg)   -->
+
+AMLS includes functionality to keep track of datasets, experiments, pipelines, models, and API endpoints. Plus, you can easily provision notebook virtual machines, training clusters, and inference clusters right from the site (and, of course, from the SDK). 
+
+![](https://www.bluegranite.com/hs-fs/hubfs/AMLS_process.png?width=788&name=AMLS_process.png_)
+
+
+<!--![]() -->
+<img src= "https://www.bluegranite.com/hs-fs/hubfs/amls_site.png?width=600&name=amls_site.png" height = "700" width="700">
+Azure Machine Learning, however, has some limitations in coping with big data—this is where an Azure Databricks compute can help.
+
+#### Azure Databricks <img src=https://www.bluegranite.com/hubfs/Azure%20Databricks-1.svg width = "30">
+[Databricks](https://azure.microsoft.com/en-us/services/databricks/) is a unified analytics platform projects to data science solutions using [Apache Spark](https://spark.apache.org/). 
+One of the biggest benefits of using Databricks is the interface, which allows for easy cluster creation, data management, and user collaboration while coding—that is, users can work together in the same notebook—but one person can be writing R in one block and another can be switching back and forth between Python and SQL in another cell on the same notebook. This makes it easy for users to work towards a solution using the langage they're most familair with. <br> [](https://www.bluegranite.com/hs-fs/hubfs/dbx_site.png?width=600&name=dbx_site.png).
+
+#### Integrating Databricks with Azure Machine Learning
+
+By using Databricks as a compute to train your models when working with a lot of data and Azure Machine Learning you can benefit from from the parallelization power of Apache Spark and Azure Machine Learning's capability of tracking runs and experiements. As shown in the example detailed in this repository, this can be easily done through the se of MLFlow as the tracking engine inside of Databricks. This is an open source package that come pre-installed and enabled in the ML runtime version in Databricks. 
+<img src="https://www.bluegranite.com/hs-fs/hubfs/mlflow-1.png?width=600&name=mlflow-1.png" width = "600">
+
+
+An additional benefit of MLFlow, is that MLFlow wll autmaticlly track your MLib experiment runs with zero configuration.
+
+<img src="https://www.bluegranite.com/hs-fs/hubfs/experiment_track_mlflow.png?width=334&name=experiment_track_mlflow.png" height="400" width="300">
+
 
 ## Design
 
