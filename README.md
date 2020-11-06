@@ -2,10 +2,9 @@
 
 ## Overview
 
-This document walks through how we can build and train a model using Azure Databricks and/or Azure Machine Learning for two different solutions:
+This document walks through how we can build and train a model using Azure Databricks and/or Azure Machine Learning for two different purposes:
 * Solution 1: Build and train a model on Azure Databrics and use it to predict the current and future state of the machine
-* Solution 2: Build and train a model on Azure Databricks and use the open source MLFlow API to track, run and deploy models on Azure Machine Learning. 
-For the latter solution the model is then deployed using MLFlow APIs as a Spark Pandas UDF for batch scoring.
+* Solution 2: Build and train a model on Azure Databricks and use the open source MLFlow API to track, run experiments and register the model on Azure Machine Learning. 
 
 A predictive maintenance scenario is used for this use case, where a Random Forest is trained and used to classify a set of four machine components into _healthy_ or _unhealthy requiring maintenance_ states.
 
@@ -50,16 +49,14 @@ One solution only uses the Azure Databricks service, whilst the latter which det
 
  2. **Feature engineering** transforms and combines the data sets into an analysis data set. The analysis data set can be targeted for training a model or scoring data for a production pipeline. Each analysis data set is also stored in the Databricks DBFS.
 
- 3. **Training** takes a subset of the complete data and constructs a model we can use to predict future outcomes. For solution 1, The model is stored in the Databricks DBFS for use by the scoring notebook. For solution 2, this notebook also details how to use MLFlow APIs to deploy the model as a Spark Pandas USF for batch scoring. This might be split into another notebook in the future. 
+ 3. **Training** takes a subset of the complete data and constructs a model we can use to predict future outcomes. For solution 1, The model is stored in the Databricks DBFS for use by the scoring notebook. For solution 2, this notebook also details how to use MLFlow APIs to register the model on Azure Machine Learning and build an Azure Container Image for model deployment.
 
  4. **Scoring** uses a different subset of the data, including data not yet collected to predict the current and future state of the machine. The model results are stored back onto the Databricks DBFS.
 
 
 # Prerequisites
 
- * We assume you have an Azure subscription. You will also need access to git on your working compute instance (local computer or VM). The repository is located at: `https://github.com/Azure/BatchSparkScoringPredictiveMaintenance`
-
-* Any working computer that has a web browser, and runs python Python Version > 2.7.9 or > 3.6 as specified for using the Databricks CLI.
+ * We assume you have an Azure subscription. 
 
 ## Azure Databricks
 
@@ -76,63 +73,46 @@ Once your Azure Databricks service has been created, you will need to create a c
   * From the portal, find your new Azure Databricks service, and `Launch Workspace`.
   * A new window will open in your browser. Select the *Clusters* icon, and click on the `+ Create Cluster` button to provision a new cluster. In the form that pops up, change the value of the `Python Version` dropdown menu to **3**. The remaining defaults values are acceptable.
 
-## Databricks CLI
+## Azure Machine Learning
 
-We will be using a Databricks command line utility (CLI) to automate running notebook tasks using the Databricks Jobs construct. Installing the Databricks CLI will simplify some of the operations required for this scenario. The first step is to import the Jupyter notebooks from the repository into your Databricks workspace. This can be accomplished with 1 command once the CLI is connected to your Azure Databricks instance.
+For the second solution you will also need an Azure Machine Learning Workspace. 
+Sign into the Azure portal and click on `Create a resource`, start typing `Machine Learning` and select the Machine Learning suggeston. Follow the prompts, and if requested seleced the 'most standard pricing tier'. 
 
-From a command line, you can pip install the CLI using 
+and select `Basic` Workspace edition. 
 
-```
-pip install --upgrade databricks-cli
-```
 
 # Setup
 
- * Clone the GitHub repository: 
- 
- ```
- git clone https://github.com/Azure/BatchSparkScoringPredictiveMaintenance.git
- ```
+## Link your Databricks Workspace with Azure ML Workspace
 
- * `cd` into the root directory of your cloned repository
+Go to your Azure Workspace, click `Link Azure ML Workpace` and follow the prompts.
 
-The next two subsections of this document detail how to:
 
- * Connect the CLI to your Databricks instance to simplify the import of repo notebooks.
- * Import the repo notebooks into your Databricks workspace
+<img src="https://docs.microsoft.com/en-us/azure/machine-learning/media/how-to-use-mlflow-azure-databricks/link-workspaces.png" width="500">
 
-## Connect the CLI to your Databricks instance
-
-We need to connect the CLI to your databricks instance. This can be done using a Databricks generated [Authentication token](https://docs.databricks.com/api/latest/authentication.html#token-management). This linking only needs to be done once.
-
- 1. Copy the url portion of the web address of your Azure Databricks instance from your browser. You will not use the POST arguments for the hostname (everything including and following the '?' character). In `eastus` region, it will be `https://eastus.azuredatabricks.net/`.
-
- 2. Create and copy an authentication token. Instructions are provided at the link above.
-
- 3. From your working machine command line, `databricks configure --token`. This will prompt you for your Azure Databricks hostname and the authentication token.
+Once they are linked MLFlow recognized the fact that you want your metrics and runs to be logged both to your Databricks and Azure ML workspace.
 
 ## Import Notebooks
 
-Use the CLI to copy the scenario notebooks to your Databricks instance. From your working machine command line, change into the local copy of the repository.  Then `databricks workspace import_dir [OPTIONS] SOURCE_PATH TARGET_PATH` 
+1) To import the notebooks navigate to [Notebooks](notebooks) and download each notebook.
+2) Go to your Azure Portal, find your Databricks workspace and click `Launch Workspace`. You can see this in the image shown above. Once launched you should be able to view your Workspace. 
+3) Click the **Workspace** button or the **Home** button in the sidebar. Next to any folder, click the down arrow icon on the right side of the text and select **Import**. 
 
-  * The `SOURCE_PATH` will be the `./notebooks` directory. 
-  * The `TARGET_PATH` will include your user name, which you can get from the Azure Databricks UI, it should be related to your Azure AD email of the form `<uname@example.com>`.  The whole `[TARGET_PATH]` should be of the form `/Users/<uname@example.com>/notebooks`.
+<img src="https://docs.databricks.com/_images/import-notebook.png" width = "400"> 
 
-The command should look like the following:
+4) Browse to the notebook you want to upload. 
 
-```{shell}
-databricks workspace import_dir ./notebooks /Users/<uname@example.com>/notebooks
-```
+5) Click **Import**
 
-This will copy all required notebooks into the `notebooks` folder of your Azure Databricks Workspace.
+6) Repeat for each notebook. 
 
-To find these notebooks in your  Azure Databricks Workspace, use the *Workspace* icon, follow the path to your `/Users/<uname@example.com>/notebooks`. Databricks uses Jupyter notebooks with some extensions. Instructions on how to use Jupyter notebooks are at https://docs.databricks.com/user-guide/notebooks/notebook-use.html#run-notebooks.
+Instructions on how to use Jupyter notebooks are at https://docs.databricks.com/user-guide/notebooks/notebook-use.html#run-notebooks.
 
 # Steps
 
 To create the full example scenario, log into your Azure Databricks workspace and run through the following notebooks that are now located there.
 
-These notebooks need to be run sequentially in alpha-numeric order, as each depends on data artifacts produced in the previous notebooks full run.
+These notebooks need to be run sequentially as the latter notebooks depends on data artifacts produced in the previous notebooks' run.
 
 When running the notebooks, you may have to start your Azure Databricks cluster or attach these notebooks to your Azure Databricks cluster. The UI will prompt you if this is required.
 
