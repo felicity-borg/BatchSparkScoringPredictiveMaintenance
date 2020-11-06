@@ -5,7 +5,7 @@
 This document walks through how we can build and train a model using Azure Databricks and/or Azure Machine Learning for two different solutions:
 * Solution 1: Build and train a model on Azure Databrics and use it to predict the current and future state of the machine
 * Solution 2: Build and train a model on Azure Databricks and use the open source MLFlow API to track, run and deploy models on Azure Machine Learning. 
-For the latter solution the model is then deployed as a web service in Azure Machine Learning and used for batch scoring.
+For the latter solution the model is then deployed using MLFlow APIs as a Spark Pandas UDF for batch scoring.
 
 A predictive maintenance scenario is used for this use case, where a Random Forest is trained and used to classify a set of four machine components into _healthy_ or _unhealthy requiring maintenance_ states.
 
@@ -50,7 +50,7 @@ One solution only uses the Azure Databricks service, whilst the latter which det
 
  2. **Feature engineering** transforms and combines the data sets into an analysis data set. The analysis data set can be targeted for training a model or scoring data for a production pipeline. Each analysis data set is also stored in the Databricks DBFS.
 
- 3. **Training** takes a subset of the complete data and constructs a model we can use to predict future outcomes. For solution 1, The model is stored in the Databricks DBFS for use by the scoring notebook. For solution 2, this notebook also details how to deploy the model as a web service and use it for batch scoring. This might be split into another notebook in the future. 
+ 3. **Training** takes a subset of the complete data and constructs a model we can use to predict future outcomes. For solution 1, The model is stored in the Databricks DBFS for use by the scoring notebook. For solution 2, this notebook also details how to use MLFlow APIs to deploy the model as a Spark Pandas USF for batch scoring. This might be split into another notebook in the future. 
 
  4. **Scoring** uses a different subset of the data, including data not yet collected to predict the current and future state of the machine. The model results are stored back onto the Databricks DBFS.
 
