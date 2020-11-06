@@ -116,5 +116,6 @@ These notebooks need to be run sequentially as the latter notebooks depends on d
 
 When running the notebooks, you may have to start your Azure Databricks cluster or attach these notebooks to your Azure Databricks cluster. The UI will prompt you if this is required.
 
-  * [Ingest Data](https://github.com/Azure/BatchSparkScoringPredictiveMaintenance/blob/master/notebooks/1_data_ingestion.ipynb). Open the `1_data_ingestion` notebook on the Azure Databricks workspace. You can either `Run All` cells, or execute cells individually. This notebook downloads the example data into your Azure Databricks Data storage.
+  * [Ingest Data](https://github.com/Azure/BatchSparkScoringPredictiveMaintenance/blob/master/notebooks/1_Data_Ingestion.ipynb). Open the `1_Data_Ingestion` notebook on the Azure Databricks workspace. You can either `Run All` cells, or execute cells individually. This notebook downloads the example data into your Azure Databricks Data storage.
+  
   
