@@ -122,4 +122,10 @@ When running the notebooks, you may have to start your Azure Databricks cluster 
 
   * [Ingest Data](https://github.com/Azure/BatchSparkScoringPredictiveMaintenance/blob/master/notebooks/1_Data_Ingestion.ipynb). Open the `1_Data_Ingestion` notebook on the Azure Databricks workspace. You can either `Run All` cells, or execute cells individually. This notebook downloads the example data into your Azure Databricks Data storage.
   
+  * [Model Building and Training]
+   * [Solution 1](https://github.com/Azure/BatchSparkScoringPredictiveMaintenance/blob/master/notebooks/3_Model_Building_And_Training.ipynb). Open the `3_Model_building_And_Training` notebook on the Azure Databricks Workspace. You can either `Run All` cells, or execute cells individually. This notebook will run one external notebook—2_Feature_Engineering to create training and testing data sets which are then written to the Azure Databricks Data store. The rest of the notebook builds and tests a Random Forest model. 
+   * [Solution 2](https://github.com/Azure/BatchSparkScoringPredictiveMaintenance/blob/master/notebooks/3_AzureML_Model_Building_And_Training. Open the `3_AzureML_Model_Building_And_Training` notebook on the Azure Databricks Workspace. For this notebook you will need to execute each cell individually. This notebook will run one external notebook—2_Feature_Engineering to create training and testing data sets which are then written to the Azure Databricks Data store. The rest of the notebook creates an experiment to build, train and test a machine learning model using the open source MLFlow API to track. This enables the user to track the experiment such the model's performance metrics on both Azure ML and Databricks' workspace. This notebook also details how to regsiter the model on Azure ML and create a container image for the trained model. `Run All` cells will not work on this notebook as users will need to populate `cell 8` with their workspace details and then follow the instructions provided to for interactive authentication. 
+   
+  
+  
   
