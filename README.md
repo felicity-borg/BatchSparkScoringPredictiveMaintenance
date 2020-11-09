@@ -127,7 +127,7 @@ When running the notebooks, you may have to start your Azure Databricks cluster 
  
    i. `2_Feature_Engineering` creates a scoring data set with 2 different input parameters than in the training dataset. The scoring data is written to the Azure Databricks Data        store.
 
-  ii. `4a_Model_Scoring` will score the data with the machine learning model created with `3_Model_Building_And_training`. The results data is written to the Azure Databricks Data    store. Once this notebook is run, you can optionally examine the scored results data with the`4b_Model_Scoring_Evaluation` notebook.
+   ii. `4a_Model_Scoring` will score the data with the machine learning model created with `3_Model_Building_And_training`. The results data is written to the Azure Databricks   Data    store. Once this notebook is run, you can optionally examine the scored results data with the`4b_Model_Scoring_Evaluation` notebook.
    
   
   
