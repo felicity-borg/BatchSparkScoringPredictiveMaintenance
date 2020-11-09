@@ -43,7 +43,7 @@ An additional benefit of MLFlow, is that MLFlow wll autmaticlly track your MLib 
 
 ## Design
 
-One solution only uses the Azure Databricks service, whilst the latter which details how to deploy the model as a web service uses both databricks and AMLS. The first solution is comprised of 4 notebooks, whilst the second consists of 3. 
+One solution only uses the Azure Databricks service, whilst the latter which details how to deploy the model as a web service uses both databricks and AMLS. The first solution is comprised of 6 notebooks, whilst the second consists of 3. 
 
  1. **Ingest** downloads the simulated data sets from a GitHub site and converts and stores them as Spark dataframes on the Databricks DBFS. “Input Data” in the architecture diagram refers to a set of five simulated data sets related to realistic machine operating conditions.
 
@@ -51,7 +51,11 @@ One solution only uses the Azure Databricks service, whilst the latter which det
 
  3. **Training** takes a subset of the complete data and constructs a model we can use to predict future outcomes. For solution 1, The model is stored in the Databricks DBFS for use by the scoring notebook. For solution 2, this notebook also details how to use MLFlow APIs to register the model on Azure Machine Learning and build an Azure Container Image for model deployment.
 
- 4. **Scoring** uses a different subset of the data, including data not yet collected to predict the current and future state of the machine. The model results are stored back onto the Databricks DBFS.
+ 4. **Scoring** uses a different subset of the data, including data not yet collected to predict the current and future state of the machine. The model results are stored back onto the Databricks DBFS. The main scoring notebook—`4_Scoring_Pipeline` notebook runs two external notebooks:
+ 
+ * `2_Feature_Engineering` creates a scoring data set with 2 different input parameters than in the training dataset. The scoring data is written to the Azure Databricks Data store.
+
+* `4a_Model_Scoring` will score the data with the machine learning model created with `3_Model_Building_And_training`. The results data is written to the Azure Databricks Data store. Once this notebook is run, you can optionally examine the scored results data with the`4b_Model_Scoring_Evaluation` notebook.
 
 
 # Prerequisites
