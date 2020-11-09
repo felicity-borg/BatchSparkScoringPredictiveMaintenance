@@ -51,12 +51,7 @@ One solution only uses the Azure Databricks service, whilst the latter which det
 
  3. **Training** takes a subset of the complete data and constructs a model we can use to predict future outcomes. For solution 1, The model is stored in the Databricks DBFS for use by the scoring notebook. For solution 2, this notebook also details how to use MLFlow APIs to register the model on Azure Machine Learning and build an Azure Container Image for model deployment.
 
- 4. **Scoring** uses a different subset of the data, including data not yet collected to predict the current and future state of the machine. The model results are stored back onto the Databricks DBFS. The main scoring notebook—`4_Scoring_Pipeline` notebook runs two external notebooks:
- 
- * `2_Feature_Engineering` creates a scoring data set with 2 different input parameters than in the training dataset. The scoring data is written to the Azure Databricks Data store.
-
-* `4a_Model_Scoring` will score the data with the machine learning model created with `3_Model_Building_And_training`. The results data is written to the Azure Databricks Data store. Once this notebook is run, you can optionally examine the scored results data with the`4b_Model_Scoring_Evaluation` notebook.
-
+ 4. **Scoring** uses a different subset of the data, including data not yet collected to predict the current and future state of the machine. The model results are stored back onto the Databricks DBFS. 
 
 # Prerequisites
 
@@ -124,8 +119,24 @@ When running the notebooks, you may have to start your Azure Databricks cluster 
   
   * [Model Building and Training]
    * [Solution 1](https://github.com/Azure/BatchSparkScoringPredictiveMaintenance/blob/master/notebooks/3_Model_Building_And_Training.ipynb). Open the `3_Model_building_And_Training` notebook on the Azure Databricks Workspace. You can either `Run All` cells, or execute cells individually. This notebook will run one external notebook—2_Feature_Engineering to create training and testing data sets which are then written to the Azure Databricks Data store. The rest of the notebook builds and tests a Random Forest model. 
-   * [Solution 2](https://github.com/Azure/BatchSparkScoringPredictiveMaintenance/blob/master/notebooks/3_AzureML_Model_Building_And_Training. Open the `3_AzureML_Model_Building_And_Training` notebook on the Azure Databricks Workspace. For this notebook you will need to execute each cell individually. This notebook will run one external notebook—2_Feature_Engineering to create training and testing data sets which are then written to the Azure Databricks Data store. The rest of the notebook creates an experiment to build, train and test a machine learning model using the open source MLFlow API to track. This enables the user to track the experiment such the model's performance metrics on both Azure ML and Databricks' workspace. This notebook also details how to regsiter the model on Azure ML and create a container image for the trained model. `Run All` cells will not work on this notebook as users will need to populate `cell 8` with their workspace details and then follow the instructions provided to for interactive authentication. 
+   * [Solution 2](https://github.com/Azure/BatchSparkScoringPredictiveMaintenance/blob/master/notebooks/3_AzureML_Model_Building_And_Training.ipynb). Open the `3_AzureML_Model_Building_And_Training` notebook on the Azure Databricks Workspace. For this notebook you will need to execute each cell individually. This notebook will run one external notebook—2_Feature_Engineering to create training and testing data sets which are then written to the Azure Databricks Data store. The rest of the notebook creates an experiment to build, train and test a machine learning model using the open source MLFlow API to track. This enables the user to track the experiment such the model's performance metrics on both Azure ML and Databricks' workspace. This notebook also details how to regsiter the model on Azure ML and create a container image for the trained model. `Run All` cells will not work on this notebook as users will need to populate `cell 8` with their workspace details and then follow the instructions provided for authentication. 
+   
+ * [Data Scoring Pipeline]https://github.com/Azure/BatchSparkScoringPredictiveMaintenance/blob/master/notebooks/4_Scoring_Pipeline.ipynb). Open the 4_Scoring_Pipeline notebook    on the Azure Databricks workspace. You can either Run All cells, or execute cells individually. The main scoring`4_Scoring_Pipeline` notebook runs two external notebooks:
+ 
+  * `2_Feature_Engineering` creates a scoring data set with 2 different input parameters than in the training dataset. The scoring data is written to the Azure Databricks Data        store.
+
+ * `4a_Model_Scoring` will score the data with the machine learning model created with `3_Model_Building_And_training`. The results data is written to the Azure Databricks Data    store. Once this notebook is run, you can optionally examine the scored results data with the`4b_Model_Scoring_Evaluation` notebook.
    
   
   
+  ## Conclusion 
   
+  This use case demonstrates how to build and train a machine learning model on Azure Databricks for two different purposes. The first approach builds the entire solution on Azure Databricks and demosntrated how to build a model on Databricks, save it on DBFS and use to predict the state of the machine. The second approach shows how to build the same model using the MLFlow API so that the model's performance can be tracked both on the Databricks workspace as well as on Azure ML workspace. This approach also demonstrates how to register a model and create a Container Image to deploy the trained model. Registering a model is useful if you want to create and compare the perfomance of various models. 
+  
+ ## Cleaning up
+The easiest way to cleanup this work is to delete the resource group containing the Azure Databricks instance.
+
+Through the Azure portal (https://portal.azure.com) search for databricks.
+Open your Azure Databricks service and select the *Resource Group* link.
+Delete resource group will remove the Azure Databricks service and all associated resources including the notebooks and data artifacts used in this scenario.
+
