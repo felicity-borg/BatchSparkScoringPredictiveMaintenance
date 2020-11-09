@@ -1,4 +1,4 @@
-# Build a Spark Machine Learning Model for Predicive Maintenance using Azure Databricks and Azure Machine Learning
+# Build a Spark Machine Learning Model for Predictive Maintenance using Azure Databricks and Azure Machine Learning
 
 ## Overview
 
