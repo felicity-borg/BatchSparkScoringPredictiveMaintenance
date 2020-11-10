@@ -183,6 +183,23 @@ A Build pipeline provides the **CI** portion of CI/CD.
 
 7. Select added task, enter notebooks for the Path to publish and enter DEV build for the Artifact name.
 
+[](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/ArtifactName.PNG)
+
+8. Select the Triggers tab and check Enable continuous integration. This will automatically trigger a build whenever you commit your code to the repo.
+
+[](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/Triggers.PNG)
+
+9. Select Save & queue to continue.
+
+[](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/SaveAndQueue.PNG)
+
+10. In the Run pipeline dialog that appears, enter a save comment, then select Save and run.
+
+[](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/InitialSetup.PNG)
+
+11. Verify that your build pipeline was created and successfully run.
+
+[](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/VerifyBuild.PNG)
 
 
 
