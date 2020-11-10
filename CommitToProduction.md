@@ -8,7 +8,7 @@
 
 
 ## Prerequisites
-Before compelting the steps detailed befor you need to have created your Databricks Workspace and uploaded your notebooks as detailed [here](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/README.md); this will be your **DEV** Azure Databricks Workspace. 
+Before compelting the steps detailed befor you need to have created your Databricks Workspace and uploaded your notebooks as detailed [here](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/README.md)—this will be your **DEV** Azure Databricks Workspace. 
 
 ## Create the required resources
 
@@ -128,5 +128,63 @@ If your Azure DevOps organization is `org.visualstudio.com`, open `dev.azure.com
 11. Go back to your repo in Azure DevOps and refresh the files list. You should see your notebook in the repo. If you look under Commits, you should see your commit message as well. 
 
 [](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/notebookRepo.PNG)
+
+
+#### Step 3: Retrieve Access token from PROD workspace
+
+Go to PROD Azure Databricks workspace and generate a user access token for the Azure DevOps release pipeline you will create later, by following these steps:
+
+1. Navigate to your production (PROD) Azure Databricks workspace.
+
+2. When you launch and sign in to the workspace, take note of the URL. It is in the form of `https://<location>.azuredatabricks.net`. Copy the location portion of the URL (up to `.net`) and save it to a text editor for later reference.
+
+[](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/location.PNG)
+
+3. Select the user icon on the top-right of the workspace, then select User Settings.
+
+[](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/usersetting.PNG)
+
+4. Under the Access Tokens tab, select Generate New Token. In the Generate New Token dialog, add Azure DevOps for the Comment, then select **Generate**.
+
+[](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/GenerateNewToke.PNG)
+
+5. Copy the new token and save it to a text editor for later reference. This is only displayed once.
+
+[](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/NewToken.PNG)
+
+#### Step 4: Azure DevOps - Create a Build Pipeline (CI)
+
+A Build pipeline provides the **CI** portion of CI/CD.
+
+1. Navigate back to Azure DevOps. Within your project, expand **Pipelines** in the left-hand menu, then select **Pipelines**. Select **Create Pipeline**.
+
+[](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/BuidPipeline.PNG)
+
+2. Select Use the classic editor link under "Where is your code?"
+
+[](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/youCode.PNG)
+
+3. Select your project, repository, and the master branch for manual and scheduled builds, then select Continue.
+
+[](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/Source.PNG)
+
+4. Under Select a template, select the start with an Empty job link.
+
+[](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/Template.PNG)
+
+5. Select the + link on Agent job 1 to add a task.
+
+[](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/AddTask.PNG)
+
+
+6. Search for the "Publish Build Artifacts" task and add it to a Agent job.
+
+[](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/BuildArtifact.PNG)
+
+7. Select added task, enter notebooks for the Path to publish and enter DEV build for the Artifact name.
+
+
+
+
 
 
