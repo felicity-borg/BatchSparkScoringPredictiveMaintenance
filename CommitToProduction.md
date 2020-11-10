@@ -79,7 +79,7 @@ At a high level, setting up CI/CD on Azure Databricks with Azure DevOps consists
 
 5. Once Project is created, go to **Repos**, then **initialize** your repo. 
 
-[](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/InitializeRepo.PNG)
+![](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/InitializeRepo.PNG)
 
 #### Step 2: Set up Azure Databricks Workspace and your notebook
 
@@ -88,32 +88,32 @@ Go to your DEV Azure Databricks workspace and setup your Git integration provide
 1. Select the user icon on the top-right of the workspace, then select **User Settings.**
 
 
-[](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/UserSettings.PNG)
+![](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/UserSettings.PNG)
 
 2. Select the **Git Integration** tab. Make sertin the Git provider is set to **Azure DevOps Services**.
 
-[](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/GitIntegration.PNG)
+![](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/GitIntegration.PNG)
 
 
 3. Navigate to the **Notebooks** folder containing all the notebooks used for the predictve maintenance in your Workspace. 
 
-[](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/NotebooksDir.PNG)
+![](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/NotebooksDir.PNG)
 
 4. Click the first notebook—`1_Data_Ingestion`, select **Revision history** on the right-hand side above the notebook.
 
-[](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/RevisionHistory.PNG)
+![](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/RevisionHistory.PNG)
 
 5. Select **Git:Not linked** at the top of the revision history. This opens a Git configuration dialog. 
 
-[](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/NotLinked.PNG)
+![](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/NotLinked.PNG)
 
 6. In Git Preferences, use the URL scheme https://dev.azure.com/<myOrg>/<myProject>/_git/<myRepo> in the Link field to link Azure DevOps and Azure Databricks to the same Azure AD tenant.
   
-[](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/GitPreferences.PNG)
+![](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/GitPreferences.PNG)
 
 If your Azure DevOps organization is `org.visualstudio.com`, open `dev.azure.com` in your browser and navigate to your repository. Copy the URL from the browser and paste that URL in the Link field.
 
-[](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/FormatURL.PNG)
+![](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/FormatURL.PNG)
 
 7. Select **Save** to finish linking your notebook. You should see that the GIT repository is now synced. 
 
@@ -121,13 +121,13 @@ If your Azure DevOps organization is `org.visualstudio.com`, open `dev.azure.com
 
 9. Open the Revision History sidebar once again. When prompted to Save Notebook Revision, enter a revision description, then **Save**.
 
-[](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/SaveNotebookRevision.PNG)
+![](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/SaveNotebookRevision.PNG)
 
 10. Repeat steps 4-7 for each notebook you want to deploy to your **PROD** workspace.
 
 11. Go back to your repo in Azure DevOps and refresh the files list. You should see your notebook in the repo. If you look under Commits, you should see your commit message as well. 
 
-[](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/notebookRepo.PNG)
+![](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/notebookRepo.PNG)
 
 
 #### Step 3: Retrieve Access token from PROD workspace
@@ -138,19 +138,19 @@ Go to PROD Azure Databricks workspace and generate a user access token for the A
 
 2. When you launch and sign in to the workspace, take note of the URL. It is in the form of `https://<location>.azuredatabricks.net`. Copy the location portion of the URL (up to `.net`) and save it to a text editor for later reference.
 
-[](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/location.PNG)
+![](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/location.PNG)
 
 3. Select the user icon on the top-right of the workspace, then select User Settings.
 
-[](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/usersetting.PNG)
+![](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/usersetting.PNG)
 
 4. Under the Access Tokens tab, select Generate New Token. In the Generate New Token dialog, add Azure DevOps for the Comment, then select **Generate**.
 
-[](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/GenerateNewToke.PNG)
+![](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/GenerateNewToke.PNG)
 
 5. Copy the new token and save it to a text editor for later reference. This is only displayed once.
 
-[](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/NewToken.PNG)
+![](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/NewToken.PNG)
 
 #### Step 4: Azure DevOps - Create a Build Pipeline (CI)
 
@@ -158,48 +158,48 @@ A Build pipeline provides the **CI** portion of CI/CD.
 
 1. Navigate back to Azure DevOps. Within your project, expand **Pipelines** in the left-hand menu, then select **Pipelines**. Select **Create Pipeline**.
 
-[](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/BuidPipeline.PNG)
+![](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/BuidPipeline.PNG)
 
 2. Select Use the classic editor link under "Where is your code?"
 
-[](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/youCode.PNG)
+![](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/youCode.PNG)
 
 3. Select your project, repository, and the master branch for manual and scheduled builds, then select Continue.
 
-[](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/Source.PNG)
+![](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/Source.PNG)
 
 4. Under Select a template, select the start with an Empty job link.
 
-[](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/Template.PNG)
+![](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/Template.PNG)
 
 5. Select the + link on Agent job 1 to add a task.
 
-[](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/AddTask.PNG)
+![](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/AddTask.PNG)
 
 
 6. Search for the "Publish Build Artifacts" task and add it to a Agent job.
 
-[](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/BuildArtifact.PNG)
+![](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/BuildArtifact.PNG)
 
 7. Select added task, enter notebooks for the Path to publish and enter DEV build for the Artifact name.
 
-[](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/ArtifactName.PNG)
+![](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/ArtifactName.PNG)
 
 8. Select the Triggers tab and check Enable continuous integration. This will automatically trigger a build whenever you commit your code to the repo.
 
-[](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/Trigger.PNG)
+![](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/Trigger.PNG)
 
 9. Select Save & queue to continue.
 
-[](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/SaveAndQueue.PNG)
+![](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/SaveAndQueue.PNG)
 
 10. In the Run pipeline dialog that appears, enter a save comment, then select Save and run.
 
-[](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/InitialSetup.PNG)
+![](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/InitialSetup.PNG)
 
 11. Verify that your build pipeline was created and successfully run.
 
-[](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/VerifyBuild.PNG)
+![](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/VerifyBuild.PNG)
 
 
 
