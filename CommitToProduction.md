@@ -187,7 +187,7 @@ A Build pipeline provides the **CI** portion of CI/CD.
 
 8. Select the Triggers tab and check Enable continuous integration. This will automatically trigger a build whenever you commit your code to the repo.
 
-[](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/Triggers.PNG)
+[](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/Trigger.PNG)
 
 9. Select Save & queue to continue.
 
