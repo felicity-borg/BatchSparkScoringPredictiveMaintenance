@@ -55,9 +55,78 @@ The workspace creation takes a few minutes. During workspace creation, the porta
 
 8. Select Create Cluster.
 
+### High Level Steps
+
+At a high level, setting up CI/CD on Azure Databricks with Azure DevOps consists of 4 steps:
+
+1. Setting up Azure DevOps Repo
+2. Have your Azure Workspace and notebook configured to use Azure DevOps
+3. Azure DevOps - Create a build pipeline (CI)
+4. Azure DevOps - Create a release pipeline (CD)
 
 
+#### Step 1: Set up Azure DevOps Repo
+
+1. Go to https://aex.dev.azure.com. Make sure that you are logged in under the correct account.
+
+2. If your account has access to multiple Azure subscriptions, make sure that you're in the same directory as your Databricks workspaces.
+
+3. Create a project.
+
+4. Complete the new project form by providing a unique project name. Set visibility to **Private**, expand the Advanced section on the bottom, then select **Git** for version control. The work item process can remain at its default setting.
+
+![](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/NewProject.PNG)
+
+5. Once Project is created, go to **Repos**, then **initialize** your repo. 
+
+[](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/InitializeRepo.PNG)
+
+#### Step 2: Set up Azure Databricks Workspace and your notebook
+
+Go to your DEV Azure Databricks workspace and setup your Git integration provider to Azure DevOps Services by following these steps:
+
+1. Select the user icon on the top-right of the workspace, then select **User Settings.**
 
 
+[](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/UserSettings.PNG)
+
+2. Select the **Git Integration** tab. Make sertin the Git provider is set to **Azure DevOps Services**.
+
+[](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/GitIntegration.PNG)
+
+
+3. Navigate to the **Notebooks** folder containing all the notebooks used for the predictve maintenance in your Workspace. 
+
+[](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/NotebooksDir.PNG)
+
+4. Click the first notebook—`1_Data_Ingestion`, select **Revision history** on the right-hand side above the notebook.
+
+[](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/RevisionHistory.PNG)
+
+5. Select **Git:Not linked** at the top of the revision history. This opens a Git configuration dialog. 
+
+[](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/NotLinked.PNG)
+
+6. In Git Preferences, use the URL scheme https://dev.azure.com/<myOrg>/<myProject>/_git/<myRepo> in the Link field to link Azure DevOps and Azure Databricks to the same Azure AD tenant.
+  
+[](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/GitPreferences.PNG)
+
+If your Azure DevOps organization is `org.visualstudio.com`, open `dev.azure.com` in your browser and navigate to your repository. Copy the URL from the browser and paste that URL in the Link field.
+
+[](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/FormatURL.PNG)
+
+7. Select **Save** to finish linking your notebook. You should see that the GIT repository is now synced. 
+
+8. To test Close the Revision History sidebar, then scroll down to the bottom of the notebook. Add a new cell and add a comment such as `# Hello World"
+
+9. Open the Revision History sidebar once again. When prompted to Save Notebook Revision, enter a revision description, then **Save**.
+
+[](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/SaveNotebookRevision.PNG)
+
+10. Repeat steps 4-7 for each notebook you want to deploy to your **PROD** workspace.
+
+11. Go back to your repo in Azure DevOps and refresh the files list. You should see your notebook in the repo. If you look under Commits, you should see your commit message as well. 
+
+[](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/notebookRepo.PNG)
 
 
