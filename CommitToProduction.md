@@ -138,19 +138,19 @@ Go to PROD Azure Databricks workspace and generate a user access token for the A
 
 2. When you launch and sign in to the workspace, take note of the URL. It is in the form of `https://<location>.azuredatabricks.net`. Copy the location portion of the URL (up to `.net`) and save it to a text editor for later reference.
 
-![](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/location.PNG)
+![](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/location.png)
 
 3. Select the user icon on the top-right of the workspace, then select User Settings.
 
-![](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/usersetting.PNG)
+![](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/usersetting.png)
 
 4. Under the Access Tokens tab, select Generate New Token. In the Generate New Token dialog, add Azure DevOps for the Comment, then select **Generate**.
 
-![](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/GenerateNewToke.PNG)
+![](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/GenerateNewToke.png)
 
 5. Copy the new token and save it to a text editor for later reference. This is only displayed once.
 
-![](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/NewToken.PNG)
+![](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/NewToken.png)
 
 #### Step 4: Azure DevOps - Create a Build Pipeline (CI)
 
@@ -158,11 +158,11 @@ A Build pipeline provides the **CI** portion of CI/CD.
 
 1. Navigate back to Azure DevOps. Within your project, expand **Pipelines** in the left-hand menu, then select **Pipelines**. Select **Create Pipeline**.
 
-![](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/BuidPipeline.PNG)
+![](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/BuildPipeline.PNG)
 
 2. Select Use the classic editor link under "Where is your code?"
 
-![](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/youCode.PNG)
+![](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/youCode.png)
 
 3. Select your project, repository, and the master branch for manual and scheduled builds, then select Continue.
 
@@ -200,6 +200,61 @@ A Build pipeline provides the **CI** portion of CI/CD.
 11. Verify that your build pipeline was created and successfully run.
 
 ![](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/VerifyBuild.PNG)
+
+
+#### Step 5: Azure DevOps- Create a release pipeline (CD)
+
+A release pipeline provides the **CD** portion of CI/CD.
+
+1. Within your Azure DevOps project, expand **Pipelines** in the left-hand menu, then select **Releases**. Select **New pipeline**.
+
+![](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/ReleasePipeline.PNG)
+
+2. As you did when creating the previous pipeline, select the start with an **Empty job** link.
+
+![](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/EmptyJob.PNG)
+
+3. Select **Add an artifact**. Set the source type to **Build**, then select your build pipeline you created in the previous step as the **Source**. Select **Add** to apply your changes.
+
+![](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/AddArtificat.PNG)
+
+4. View the tasks for Stage 1 by selecting the `1 job, 0 task` link.
+
+![](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/SelectJobLink.PNG)
+
+5. Select the + link on Agent job to add a task. Search "Databricks", then add **Databricks Deploy Notebooks**.
+
+![](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/AddDatabricksTask.PNG)
+
+6.Once the task is added, select it and then fill the required parameters, then **Save:**
+
+* **Azure Region**: Enter the region of your production (PROD) Azure Databricks workspace that you obtained from the URL in a previous step.
+* **Source files path:** Browse to and select the Users subfolder.
+* **Target files path:** Enter `/Users.`
+* **Databricks bearer token:** Paste the Azure Databricks Access Key you copied in step 3.
+
+![](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/DatabricksToken.PNG)
+
+7. Select the **Pipeline** tab. Select the **Continuous deployment trigger** on the artifact, then **Enable** the continuous deployment trigger. This will create a release every time a new build is available.
+
+![](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/EnableDeploymentTrigger.PNG)
+
+8. Select **Save** to save your pipeline changes.
+
+9. Finally, create a release by selecting **Create release** at the top of the pipeline blade. When the `Create a new release form` displays, select **Create**.
+
+![](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/CreateRelease.PNG)
+
+10. Navigate back to **Releases** under the Pipelines section of the left-hand menu. Select the release you just created. When it opens, you should see that it is either in progress or completed.
+
+![](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/ReleaseProgress.PNG)
+
+11. Navigate back to your production (PROD) Azure Databricks workspace. If it is already open, refresh the page. Navigate to your user folder under the workspace. You should see your notebook. This was saved to your workspace by your release pipeline.
+
+
+CI/CD setup is now completed. If you commit your code from the DEV workspace to the repo (master branch), the same notebook should be available in PROD.
+
+Experiment with making changes to your notebook in DEV, then committing those changes. You will be able to see your build and release pipelines execute and the notebook in the PROD workspace automatically update to reflect those changes.
 
 
 
