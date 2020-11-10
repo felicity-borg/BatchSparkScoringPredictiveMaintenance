@@ -1,4 +1,4 @@
-# Batch scoring of Spark machine learning models 
+# Build a Spark Machine Learning Model for Predictive Maintenance using Azure Databricks and Azure Machine Learning
 
 ## Overview
 
