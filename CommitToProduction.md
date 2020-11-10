@@ -4,3 +4,4 @@
 
 1) Commit your notebooks to Azure DevOps (Master branch of the repo).
 2) Once this commit is successful, the notebooks will automatically be deployed into PROD workspace.
+![](https://github.com/Azure/BatchSparkScoringPredictiveMaintenance/blob/master/images/ProdNote.png)
