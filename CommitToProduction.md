@@ -12,7 +12,7 @@ Before compelting the steps below to deploy your notebooks into PROD you need to
 
 ## Create the required resources
 
-To deploy your notebooks to a PROD Azure Databricks Workspace, you will need to deploy two Azure Databricks workspaces in your Azure subscription. You have already created your DEV workspace when you built your predicive maintenance model.
+To deploy your notebooks to a PROD Azure Databricks Workspace, you will need to deploy two Azure Databricks workspaces in your Azure subscription. You have already created your DEV workspace when you built your predictive maintenance model.
 
 ### Deploy a PROD Azure Databricks Workspace
 
