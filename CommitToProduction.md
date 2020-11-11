@@ -37,7 +37,7 @@ The workspace creation takes a few minutes. During workspace creation, the porta
 
 **OPTIONAL:** Creating a cluster is optional—it is only needed if you plan on running the sample notebook. The notebook is only used for demonstration purposes of the CI/CD process.
 
-1. When your Azure Databricks **PROD** workspace creation is complete, select the link to go to the resource.
+1. When your Azure Databricks PROD workspace creation is complete, select the link to go to the resource.
 
 2. Select **Launch Workspace** to open your Databricks workspace in a new tab.
 
