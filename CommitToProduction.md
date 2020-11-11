@@ -3,16 +3,16 @@
 ## End Goal Scenario
 
 1) Commit your notebooks to Azure DevOps (Master branch of the repo).
-2) Once this commit is successful, the notebooks will automatically be deployed into PROD workspace.
+2) Once this commit is successful, the notebooks will automatically be deployed into a production (**PROD**) workspace.
 ![](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/ProdNote.PNG)
 
 
 ## Prerequisites
-Before compelting the steps detailed befor you need to have created your Databricks Workspace and uploaded your notebooks as detailed [here](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/README.md)—this will be your **DEV** Azure Databricks Workspace. 
+Before compelting the steps detailed befor you need to have created your Databricks Workspace and uploaded your notebooks as detailed [here](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/README.md)—this will be your development (**DEV**) Azure Databricks Workspace. 
 
 ## Create the required resources
 
-To deploy your notebooks to a production (**PROD**) Azure Databricks Workspace, you will need to deploy two Azure Databricks workspaces in your Azure subscription. You have already created your DEV workspace when you built your predicive maintenance model.
+To deploy your notebooks to a PROD Azure Databricks Workspace, you will need to deploy two Azure Databricks workspaces in your Azure subscription. You have already created your DEV workspace when you built your predicive maintenance model.
 
 ### Deploy a PROD Azure Databricks Workspace
 
