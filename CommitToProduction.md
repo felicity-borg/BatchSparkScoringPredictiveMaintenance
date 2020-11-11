@@ -116,6 +116,7 @@ If your Azure DevOps organization is `org.visualstudio.com`, open `dev.azure.com
 ![](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/FormatURL.PNG)
 
 7. Select **Save** to finish linking your notebook. You should see that the GIT repository is now synced. 
+![](https://docs.microsoft.com/en-us/learn/wwl-data-ai/implement-ci-cd-azure-devops/media/git-synced.png)
 
 8. To test Close the Revision History sidebar, then scroll down to the bottom of the notebook. Add a new cell and add a comment such as `# Hello World"
 
