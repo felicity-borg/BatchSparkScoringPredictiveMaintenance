@@ -244,7 +244,7 @@ A release pipeline provides the **CD** portion of CI/CD.
 
 9. Finally, create a release by selecting **Create release** at the top of the pipeline blade. When the `Create a new release form` displays, select **Create**.
 
-![](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/CreateRelease.PNG)
+![](https://docs.microsoft.com/en-us/learn/wwl-data-ai/implement-ci-cd-azure-devops/media/create-release.png)
 
 10. Navigate back to **Releases** under the Pipelines section of the left-hand menu. Select the release you just created. When it opens, you should see that it is either in progress or completed.
 
@@ -256,8 +256,3 @@ A release pipeline provides the **CD** portion of CI/CD.
 CI/CD setup is now completed. If you commit your code from the DEV workspace to the repo (master branch), the same notebook should be available in PROD.
 
 Experiment with making changes to your notebook in DEV, then committing those changes. You will be able to see your build and release pipelines execute and the notebook in the PROD workspace automatically update to reflect those changes.
-
-
-
-
-
