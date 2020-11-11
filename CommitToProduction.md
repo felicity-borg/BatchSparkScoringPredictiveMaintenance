@@ -193,7 +193,7 @@ A Build pipeline provides the **CI** portion of CI/CD.
 
 ![](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/SaveAndQueue.PNG)
 
-10. In the Run pipeline dialog that appears, enter a save comment, then select Save and run.
+10. In the Run pipeline dialog that appears, enter a save comment, then select **Save** and **run**.
 
 ![](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/InitialSetup.PNG)
 
