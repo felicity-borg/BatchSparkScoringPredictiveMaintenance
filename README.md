@@ -129,7 +129,7 @@ When running the notebooks, you may have to start your Azure Databricks cluster 
 
    ii. [4a_Model_Scoring](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/notebooks/4a_Model_Scoring.ipynb) will score the data with the machine learning model created with `3_Model_Building_And_training`. The results data is written to the Azure Databricks   Data    store. Once this notebook is run, you can optionally examine the scored results data with the`4b_Model_Scoring_Evaluation` notebook.
    
-Optional) Instructions on how to deploy the notebooks from your development Azure Databricks workspace to a production Databricks workspace are documented [here](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/CommitToProduction.md).
+Optional—Instructions on how to deploy the notebooks from your development Azure Databricks workspace to a production Databricks workspace are documented [here](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/CommitToProduction.md).
   
   
   ## Conclusion 
