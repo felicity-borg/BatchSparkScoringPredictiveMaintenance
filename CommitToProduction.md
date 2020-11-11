@@ -65,7 +65,7 @@ At a high level, setting up CI/CD on Azure Databricks with Azure DevOps consists
 4. Azure DevOps - Create a release pipeline (CD)
 
 
-#### Step 1: Set up Azure DevOps Repo
+### Step 1: Set up Azure DevOps Repo
 
 1. Go to https://aex.dev.azure.com. Make sure that you are logged in under the correct account.
 
@@ -81,7 +81,7 @@ At a high level, setting up CI/CD on Azure Databricks with Azure DevOps consists
 
 ![](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/InitializeRepo.PNG)
 
-#### Step 2: Set up Azure Databricks Workspace and your notebook
+### Step 2: Set up Azure Databricks Workspace and your notebook
 
 Go to your DEV Azure Databricks workspace and setup your Git integration provider to Azure DevOps Services by following these steps:
 
@@ -130,7 +130,7 @@ If your Azure DevOps organization is `org.visualstudio.com`, open `dev.azure.com
 ![](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/notebookRepo.PNG)
 
 
-#### Step 3: Retrieve Access token from PROD workspace
+### Step 3: Retrieve Access token from PROD workspace
 
 Go to PROD Azure Databricks workspace and generate a user access token for the Azure DevOps release pipeline you will create later, by following these steps:
 
@@ -144,7 +144,7 @@ Go to PROD Azure Databricks workspace and generate a user access token for the A
 
 ![](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/usersetting.png)
 
-4. Under the Access Tokens tab, select Generate New Token. In the Generate New Token dialog, add Azure DevOps for the Comment, then select **Generate**.
+4. Under the Access Tokens tab, select **Generate New Token**. In the Generate New Token dialog, add `Azure DevOps` for the Comment, then select **Generate**.
 
 ![](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/GenerateNewToke.png)
 
@@ -152,7 +152,7 @@ Go to PROD Azure Databricks workspace and generate a user access token for the A
 
 ![](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/NewToken.png)
 
-#### Step 4: Azure DevOps - Create a Build Pipeline (CI)
+### Step 4: Azure DevOps - Create a Build Pipeline (CI)
 
 A Build pipeline provides the **CI** portion of CI/CD.
 
@@ -160,36 +160,36 @@ A Build pipeline provides the **CI** portion of CI/CD.
 
 ![](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/BuildPipeline.PNG)
 
-2. Select Use the classic editor link under "Where is your code?"
+2. Select **Use the classic editor** link under "Where is your code?"
 
 ![](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/youCode.png)
 
-3. Select your project, repository, and the master branch for manual and scheduled builds, then select Continue.
+3. Select your project, repository, and the `master` branch for manual and scheduled builds, then select **Continue**.
 
 ![](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/Source.PNG)
 
-4. Under Select a template, select the start with an Empty job link.
+4. Under Select a template, select the start with an **Empty job** link.
 
 ![](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/Template.PNG)
 
-5. Select the + link on Agent job 1 to add a task.
+5. Select the + link on `Agent job 1` to add a task.
 
 ![](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/AddTask.PNG)
 
 
-6. Search for the "Publish Build Artifacts" task and add it to a Agent job.
+6. Search for the **"Publish Build Artifacts"** task and add it to a Agent job.
 
 ![](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/BuildArtifact.PNG)
 
-7. Select added task, enter notebooks for the Path to publish and enter DEV build for the Artifact name.
+7. Select added task, enter `notebooks` for the **Path to publish** and enter `DEV build` for the **Artifact name**.
 
 ![](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/ArtifactName.PNG)
 
-8. Select the Triggers tab and check Enable continuous integration. This will automatically trigger a build whenever you commit your code to the repo.
+8. Select the **Triggers** tab and check **Enable continuous integration**. This will automatically trigger a build whenever you commit your code to the repo.
 
 ![](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/Trigger.PNG)
 
-9. Select Save & queue to continue.
+9. Select **Save & queue** to continue.
 
 ![](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/SaveAndQueue.PNG)
 
@@ -202,7 +202,7 @@ A Build pipeline provides the **CI** portion of CI/CD.
 ![](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/VerifyBuild.PNG)
 
 
-#### Step 5: Azure DevOps- Create a release pipeline (CD)
+### Step 5: Azure DevOps- Create a release pipeline (CD)
 
 A release pipeline provides the **CD** portion of CI/CD.
 
@@ -222,14 +222,14 @@ A release pipeline provides the **CD** portion of CI/CD.
 
 ![](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/SelectJobLink.PNG)
 
-5. Select the + link on Agent job to add a task. Search "Databricks", then add **Databricks Deploy Notebooks**.
+5. Select the + link on `Agent job` to add a task. Search "Databricks", then add **Databricks Deploy Notebooks**.
 
 ![](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/images/AddDatabricksTask.PNG)
 
 6.Once the task is added, select it and then fill the required parameters, then **Save:**
 
 * **Azure Region**: Enter the region of your production (PROD) Azure Databricks workspace that you obtained from the URL in a previous step.
-* **Source files path:** Browse to and select the Users subfolder.
+* **Source files path:** Browse to and select the **Users** subfolder.
 * **Target files path:** Enter `/Users.`
 * **Databricks bearer token:** Paste the Azure Databricks Access Key you copied in step 3.
 
