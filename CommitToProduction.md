@@ -8,7 +8,7 @@
 
 
 ## Prerequisites
-Before compelting the steps detailed befor you need to have created your Databricks Workspace and uploaded your notebooks as detailed [here](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/README.md)—this will be your development (**DEV**) Azure Databricks Workspace. 
+Before compelting the steps below to deploy your notebooks into PROD you need to have created your Databricks Workspace and uploaded your notebooks as detailed [here](https://github.com/felicity-borg/BatchSparkScoringPredictiveMaintenance/blob/master/README.md)—this will be your development (**DEV**) Azure Databricks Workspace. 
 
 ## Create the required resources
 
